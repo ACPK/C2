@@ -96,7 +96,7 @@
 
   #files
     %h3 Attachments to this proposal
-    = form_for [@proposal, Attachment.new] do |f|
+    = form_for [@proposal, Attachment.new], html: { multipart: true }, remote: true, authenticity_token: true do |f|
       .line-item
         .row= f.file_field :file
       .row.text-area-info-container
