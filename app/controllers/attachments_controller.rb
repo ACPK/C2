@@ -6,15 +6,9 @@ class AttachmentsController < ApplicationController
   def create
     @attachment = proposal.attachments.build(attachments_params)
     @attachment.user = current_user
-    respond_to do |format|
-      if @attachment.save
-        DispatchFinder.run(proposal).deliver_attachment_emails(@attachment)
-        format.html
-        format.js
-      else
-        format.js
-        format.html { redirect_to proposal }
-      end
+
+    if @attachment.save
+      DispatchFinder.run(proposal).deliver_attachment_emails(@attachment)
     end
   end
 
