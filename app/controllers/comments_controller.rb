@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action ->{ authorize proposal, :can_show! }
   rescue_from Pundit::NotAuthorizedError, with: :auth_errors
-  respond_to :js, only: [:create]
 
   def create
     comment = Comment.new(
@@ -19,7 +18,7 @@ class CommentsController < ApplicationController
       @events = HistoryList.new(proposal).events
       @proposal = proposal
       format.js
-    end 
+    end
     # redirect_to proposal
   end
 
